@@ -30,4 +30,6 @@ public class Write {
 
     @ManyToOne
     private SiteUser author;
+
+    private LocalDateTime modifyDate;
 }

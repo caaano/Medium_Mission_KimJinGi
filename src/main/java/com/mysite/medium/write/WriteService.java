@@ -47,4 +47,15 @@ public class WriteService {
         Pageable pageable = PageRequest.of(page, 30, Sort.by(sorts));
         return this.writeRepository.findAll(pageable);
     }
+
+    public void modify(Write write, String subject, String content) {
+        write.setSubject(subject);
+        write.setContent(content);
+        write.setModifyDate(LocalDateTime.now());
+        this.writeRepository.save(write);
+    }
+
+    public void delete(Write write) {
+        this.writeRepository.delete(write);
+    }
 }

@@ -10,7 +10,7 @@
         </thead>
         <tbody>
         <tr th:each="write, loop : ${paging}">
-            <td th:text="${loop.count}"></td>
+            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <td>
                 <a th:href="@{|/write/detail/${write.id}|}" th:text="${write.subject}"></a>
             </td>

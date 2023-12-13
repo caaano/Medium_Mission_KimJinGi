@@ -25,9 +25,11 @@ public class WriteController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value="page", defaultValue = "0") int page) {
-        Page<Write> paging = this.writeService.getList(page);
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page,
+                       @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Write> paging = this.writeService.getList(page, kw);
         model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
         return "write_list";
     }
 
@@ -52,7 +54,6 @@ public class WriteController {
         }
 
         SiteUser siteUser = this.userService.getUser(principal.getName());
-
         this.writeService.create(writeForm.getSubject(), writeForm.getContent(), siteUser);
         return "redirect:/write/list"; // 질문 저장후 질문목록으로 이동
     }
@@ -67,6 +68,21 @@ public class WriteController {
         writeForm.setSubject(write.getSubject());
         writeForm.setContent(write.getContent());
         return "write_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String writeModify(@Valid WriteForm writeForm, BindingResult bindingResult,
+                                 Principal principal, @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "write_form";
+        }
+        Write write = this.writeService.getWrite(id);
+        if (!write.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.writeService.modify(write, writeForm.getSubject(), writeForm.getContent());
+        return String.format("redirect:/write/detail/%s", id);
     }
 
     @PreAuthorize("isAuthenticated()")

@@ -3,12 +3,11 @@ package com.mysite.medium.write;
 import com.mysite.medium.answer.AnswerForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping("/write")
 @RequiredArgsConstructor
@@ -18,9 +17,9 @@ public class WriteController {
     private final WriteService writeService;
 
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Write> writeList = this.writeService.getList();
-        model.addAttribute("writeList", writeList);
+    public String list(Model model, @RequestParam(value="page", defaultValue = "0") int page) {
+        Page<Write> paging = this.writeService.getList(page);
+        model.addAttribute("paging", paging);
         return "write_list";
     }
 

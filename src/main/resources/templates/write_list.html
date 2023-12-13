@@ -13,6 +13,10 @@
             <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <td>
                 <a th:href="@{|/write/detail/${write.id}|}" th:text="${write.subject}"></a>
+                <span class="text-danger small ms-2"
+                      th:if="${#lists.size(write.answerList) > 0}"
+                      th:text="${#lists.size(write.answerList)}">
+                </span>
             </td>
             <td th:text="${#temporals.format(write.createDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>

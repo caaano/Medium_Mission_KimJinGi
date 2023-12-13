@@ -1,9 +1,10 @@
 package com.mysite.medium.write;
 
+import com.mysite.medium.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.mysite.medium.DataNotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,12 @@ public class WriteService {
         } else {
             throw new DataNotFoundException("write not found");
         }
+    }
+    public void create(String subject, String content) {
+        Write w = new Write();
+        w.setSubject(subject);
+        w.setContent(content);
+        w.setCreateDate(LocalDateTime.now());
+        this.writeRepository.save(w);
     }
 }

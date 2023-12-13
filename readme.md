@@ -4,10 +4,10 @@
 
 - [x] GET /member/join : 가입 폼
 - [x] POST /member/join : 가입 폼 처리
-- [ ] GET /member/login : 로그인 폼
-- [ ] POST /member/login : 로그인 폼 처리
-- [ ] POST /member/logout : 로그아웃
-- [ ] POST /member/logout : 로그아웃
+- [x] GET /member/login : 로그인 폼
+- [x] POST /member/login : 로그인 폼 처리
+- [x] POST /member/logout : 로그아웃
+- [x] POST /member/logout : 로그아웃
 
 ## 글 작업
 
@@ -40,9 +40,9 @@
   - DELETE /post/5/canCellike : 5번글을 추천취소
 
 ## 댓글
-- [ ] 댓글 목록
+- [x] 댓글 목록
   - 글 상세페이지 하단 : 5번글에 대한 댓글 작성 폼
-- [ ] 댓글 작성
+- [x] 댓글 작성
   - 글 상세페이지 하단 : 5번글에 대한 댓글 작성 폼 
   - POST /post/5/comment/write : 5번글에 대한 댓글 작성 폼 처리
 - [ ] 댓글 수정

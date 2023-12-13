@@ -11,11 +11,13 @@ import java.util.List;
 @Controller
 public class WriteController {
 
-    private final WriteRepository writeRepository;
+    private final WriteService writeService;
 
     @GetMapping("/write/list")
     public String list(Model model) {
-        List<Write> writeList = this.writeRepository.findAll();
+        List<Write> writeList = this.writeService.getList();
+
+        model.addAttribute("writeList", writeList);
         return "write_list";
     }
 }

@@ -1,5 +1,6 @@
-package com.mysite.medium;
+package com.mysite.medium.answer;
 
+import com.mysite.medium.write.Write;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,0 +1,14 @@
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>작성일시</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="write : ${writeList}">
+        <td th:text="${write.subject}"></td>
+        <td th:text="${write.createDate}"></td>
+    </tr>
+    </tbody>
+</table>

@@ -1,5 +1,7 @@
 package com.mysite.medium;
 
+import com.mysite.medium.write.Write;
+import com.mysite.medium.write.WriteRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

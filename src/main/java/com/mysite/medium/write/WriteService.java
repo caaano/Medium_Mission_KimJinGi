@@ -1,6 +1,7 @@
 package com.mysite.medium.write;
 
 import com.mysite.medium.DataNotFoundException;
+import com.mysite.medium.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,11 +32,12 @@ public class WriteService {
             throw new DataNotFoundException("write not found");
         }
     }
-    public void create(String subject, String content) {
+    public void create(String subject, String content, SiteUser user) {
         Write w = new Write();
         w.setSubject(subject);
         w.setContent(content);
         w.setCreateDate(LocalDateTime.now());
+        w.setAuthor(user);
         this.writeRepository.save(w);
     }
 

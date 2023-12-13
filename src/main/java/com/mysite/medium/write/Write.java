@@ -1,6 +1,7 @@
 package com.mysite.medium.write;
 
 import com.mysite.medium.answer.Answer;
+import com.mysite.medium.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,7 @@ public class Write {
 
     @OneToMany(mappedBy = "write", cascade = CascadeType.REMOVE) // 생략 가능
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
 }

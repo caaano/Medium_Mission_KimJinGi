@@ -1,5 +1,6 @@
 package com.mysite.medium.answer;
 
+import com.mysite.medium.user.SiteUser;
 import com.mysite.medium.write.Write;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,4 +23,7 @@ public class Answer {
 
     @ManyToOne
     private Write write;
+
+    @ManyToOne
+    private SiteUser author;
 }

@@ -6,8 +6,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="write : ${writeList}">
-        <td th:text="${write.subject}"></td>
+    <tr th:each="write, index : ${writeList}">
+        <td>
+            <a th:href="@{|/write/detail/${write.id}|}" th:text="${write.subject}"></a>
+        </td>
         <td th:text="${write.createDate}"></td>
     </tr>
     </tbody>

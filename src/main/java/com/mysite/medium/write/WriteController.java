@@ -79,4 +79,12 @@ public class WriteController {
         this.writeService.delete(write);
         return "redirect:/";
     }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String writeVote(Principal principal, @PathVariable("id") Integer id) {
+        Write write = this.writeService.getWrite(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        this.writeService.vote(write, siteUser);
+        return String.format("redirect:/write/detail/%s", id);
+    }
 }

@@ -58,4 +58,8 @@ public class WriteService {
     public void delete(Write write) {
         this.writeRepository.delete(write);
     }
+    public void vote(Write write, SiteUser siteUser) {
+        write.getVoter().add(siteUser);
+        this.writeRepository.save(write);
+    }
 }

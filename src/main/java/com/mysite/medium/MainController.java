@@ -12,4 +12,9 @@ public class MainController {
     public String index() {
         return "안녕하세요 medium에 오신것을 환영합니다.";
     }
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/write/list";
+    }
 }

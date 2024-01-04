@@ -34,10 +34,12 @@ public class AnswerController {
                                @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
         Write write = this.writeService.getWrite(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("write", write);
             return "write_detail";
         }
+
         Answer answer = this.answerService.create(write,
                 answerForm.getContent(), siteUser);
         return String.format("redirect:/write/detail/%s#answer_%s",

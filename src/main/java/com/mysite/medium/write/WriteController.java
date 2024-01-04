@@ -103,4 +103,10 @@ public class WriteController {
         this.writeService.vote(write, siteUser);
         return String.format("redirect:/write/detail/%s", id);
     }
+
+    @GetMapping("/generateSampleData")
+    public String generateSampleData() {
+        writeService.generateSampleData();
+        return "redirect:/write/list";
+    }
 }

@@ -31,4 +31,14 @@ public class UserService {
             throw new DataNotFoundException("siteuser not found");
         }
     }
+
+    public void generatePaidMemberships() {
+        for (int i = 0; i < 100; i++) {
+            SiteUser paidMember = new SiteUser();
+            paidMember.setUsername("paid_member_" + i);
+            paidMember.setPassword(passwordEncoder.encode("password")); // 적절한 패스워드 인코딩 로직 사용
+            paidMember.setPaidMember(true);
+            userRepository.save(paidMember);
+        }
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,13 @@ import java.util.Optional;
 public class WriteService {
 
     private final WriteRepository writeRepository;
+    private Object userService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public WriteService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     private Specification<Write> search(String kw) {
         return new Specification<>() {
@@ -85,5 +93,33 @@ public class WriteService {
     public void vote(Write write, SiteUser siteUser) {
         write.getVoter().add(siteUser);
         this.writeRepository.save(write);
+    }
+
+    public void generateSampleData() {
+        generatePaidMemberships();
+        generatePaidPosts();
+    }
+
+    private void generatePaidMemberships() {
+        for (int i = 0; i < 100; i++) {
+            SiteUser paidMember = new SiteUser();
+            paidMember.setUsername("paid_member_" + i);
+            paidMember.setPassword(passwordEncoder.encode("password"));
+            paidMember.setPaidMember(true);
+            userService.saveUser(paidMember);
+        }
+    }
+
+    private void generatePaidPosts() {
+        List<SiteUser> paidMembers = userService.getPaidMemberships();
+
+        for (int i = 0; i < 100; i++) {
+            Write paidPost = new Write();
+            paidPost.setSubject("Paid Post " + i);
+            paidPost.setContent("This is a paid post content.");
+            paidPost.setCreateDate(LocalDateTime.now());
+            paidPost.setAuthor(paidMembers.get(i % paidMembers.size()));
+            writeRepository.save(paidPost);
+        }
     }
 }

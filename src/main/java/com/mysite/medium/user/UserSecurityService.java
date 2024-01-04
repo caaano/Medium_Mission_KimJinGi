@@ -27,11 +27,18 @@ public class UserSecurityService implements UserDetailsService {
         }
         SiteUser siteUser = _siteUser.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // isPaid 값에 따라 ROLE_PAID 권한 추가
+        if (siteUser.isPaid()) {
+            authorities.add(new SimpleGrantedAuthority(UserRole.PAID.getValue()));
+        }
+
         if ("admin".equals(username)) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
+
         return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
     }
 }
